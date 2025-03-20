@@ -12,11 +12,6 @@ namespace BaseModel.Models
         [Required]
         public string Surname { get; set; }
 
-        [Required]
-        public DateTime BirthDate { get; set; }
-
-        [Required]
-        public string Email { get; set; }
         public ICollection<ApplicationUserRole> ApplicationUserRole { get; set; }
     }
 }

@@ -1,8 +1,20 @@
-﻿@{
+﻿@using System.Security.Claims
+
+@{
     ViewData["Title"] = "Home Page";
+    var userName = User.Identity.IsAuthenticated ? User.FindFirst(ClaimTypes.Name)?.Value : null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center h-100 w-100 d-flex flex-column justify-content-center align-items-center">
+    <div>
+		<h1 class="display-4 my-auto">
+			Welcome
+			@if (!string.IsNullOrEmpty(userName))
+			{
+				<span>@userName</span>
+			}
+		</h1>
+		<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+
 </div>

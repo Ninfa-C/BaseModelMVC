@@ -15,9 +15,6 @@ namespace BaseModel.ViewModels
         public required string Surname { get; set; }
 
         [Required]
-        public required DateTime BirthDate { get; set; }
-
-        [Required]
         [EmailAddress]
         public required string Email { get; set; }
         [Required]

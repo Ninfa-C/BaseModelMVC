@@ -1,8 +1,13 @@
-﻿using System.Reflection.Emit;
+﻿using System.Net;
+using System.Reflection.Emit;
+using System.Security.Claims;
 using BaseModel.Models;
 using BaseModel.Services;
 using BaseModel.ViewModels;
 using FluentEmail.Core;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +41,6 @@ namespace BaseModel.Controllers
                 Email = model.Email,
                 Name = model.Name,
                 Surname = model.Surname,
-                BirthDate = model.BirthDate,
             };
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
@@ -86,6 +90,44 @@ namespace BaseModel.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Login(RegisterViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var signIn = await _signInManager.PasswordSignInAsync(user, model.Password, true, true);
+            if (!signIn.Succeeded)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.GivenName, $"{user.Name} {user.Surname}"));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Register", "Account");
+        }
 
     }
 }

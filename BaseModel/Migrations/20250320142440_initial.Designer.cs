@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseModel.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20250319151545_initial")]
+    [Migration("20250320142440_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -83,15 +83,11 @@ namespace BaseModel.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
