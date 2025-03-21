@@ -36,7 +36,7 @@
                     <th>@item.Stato</th>
                     <th>@item.User.Name</th>
                     <td class="text-center">
-                        @if (@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value == @item.User.Email)
+                        @if (User.Identity.IsAuthenticated && !User.IsInRole("Receptionist"))
                         {
                             <div class="d-flex gap-2">
 								<a class="nav-link" asp-controller="Prenotazioni" asp-action="EditPrenotazione" asp-route-id="@item.PrenotazioneId"><i class="bi bi-pencil-square"></i></a>
