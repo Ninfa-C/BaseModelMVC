@@ -1,0 +1,16 @@
+﻿@using System.Security.Claims
+
+@{
+	ViewData["Title"] = "Home Page";
+	var userName = User.Identity.IsAuthenticated ? User.FindFirst(ClaimTypes.Name)?.Value : null;
+}
+<div class="container py-3">
+	<div class="d-flex gap-4 align-items-center mb-3 border-bottom-custom">
+		<h1 class="m-0">Archivio Prenotazioni</h1>
+		<button class="btn btn-sm btn-success d-flex align-items-center h-75" onclick="getAdd()"> Nuova prenotazione</button>
+	</div>
+	<hr class="mb-5"/>
+	<div id="prenotazioniContainer">
+
+	</div>
+</div>

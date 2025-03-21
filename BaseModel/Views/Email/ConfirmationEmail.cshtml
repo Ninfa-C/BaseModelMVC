@@ -1,4 +1,4 @@
-﻿@using BaseModel.ViewModels
+﻿@using HotelManagment.ViewModels
 @model EmailViewModel
 
 
@@ -10,7 +10,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/BaseModel.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/HotelManagment.styles.css" asp-append-version="true" />
 </head>
 <body>
 <div class="container p-3 text-center">
@@ -18,12 +18,12 @@
 		<i class="bi bi-envelope-open-heart" style="font-size: 4rem; color: cornflowerblue;"></i>
 		<h1 class="mb-2">Conferma la tua email</h1>
 		<p class="mb-3">Ciao @Model.Name, per completare l'attivazione del tuo profilo, conferma il tuo indirizzo e-mail.</p>
-		<p>Se non sei stato tu a fare richiesta, ignora questa email.</p>
+		<p>Ti diamo il benvenuto nella nostra grande famiglia!</p>
 	</div>
 		<a class="btn py-1 text-white fw-bold px-2" style="background-color: #1A7C8A;" href="@Model.ConfirmationEmail">Conferma email</a>
-	<p class="mb-4">Questo link scadrà tra 24h</p>
-	<p class="mb-3">Grazie</p>
-	<i class="bi bi-balloon-heart" style="font-size: 3rem; color: cornflowerblue;"></i>
+		<p class="mb-3">Grazie,</p>
+		<p class="mb-3">Team Shangri-La Hotel</p>
+		<i class="bi bi-balloon-heart" style="font-size: 3rem; color: cornflowerblue;"></i>
 </div>
 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

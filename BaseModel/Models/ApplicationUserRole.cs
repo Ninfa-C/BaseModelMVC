@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace BaseModel.Models
+namespace HotelManagment.Models
 {
     public class ApplicationUserRole : IdentityUserRole<string>
     {
@@ -12,5 +12,6 @@ namespace BaseModel.Models
         public ApplicationUser User { get; set; }
         [ForeignKey("RoleId")]
         public ApplicationRole Role { get; set; }
+
     }
 }

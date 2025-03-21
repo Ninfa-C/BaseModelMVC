@@ -1,4 +1,58 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener("DOMContentLoaded", () => {
+    getAllPrenotazioni();
+});
 
-// Write your JavaScript code.
+async function getAllPrenotazioni() {
+    let table = document.getElementById("prenotazioniContainer")
+    if (!table) return;
+    try {
+        let response = await fetch("/Prenotazioni/Archivio");
+        if (!response.ok) {
+            throw new Error
+        }
+        let data = await response.text();
+        table.innerHTML = data;
+        new DataTable("#prenotazioniTable")
+    } catch (error) {
+        console.error("Errore nel recupero della lista prenotazioni:", error);
+    }
+}
+
+async function getAdd() {
+    let table = document.getElementById("prenotazioniContainer")
+    if (!table) return;
+    try {
+        let response = await fetch("/Prenotazioni/AggiungiPrenotazione");
+        if (!response.ok) {
+            throw new Error
+        }
+        let data = await response.text();
+        table.innerHTML = data;
+    } catch (error) {
+        console.error("Errore nel recupero del form di aggiunta prenotazione:", error);
+    }
+}
+
+
+async function SaveAdd() {
+    const form = document.getElementById("addPrenForm")
+    console.log("eccomi")
+    if (form) {
+        const formData = new FormData(form);
+        console.log(formData)
+        const result = await fetch('AddSave', {
+            method: "POST",
+            body: formData
+        });
+
+        let response = await result.json();
+        if (response.success) {
+            console.log("yeah")
+            getAllPrenotazioni();
+        }
+    } else {
+        console.log("andata male")
+    }
+
+
+}

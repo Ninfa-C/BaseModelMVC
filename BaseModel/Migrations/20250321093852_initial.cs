@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace BaseModel.Migrations
+namespace HotelManagment.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -52,6 +52,36 @@ namespace BaseModel.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Camera",
+                columns: table => new
+                {
+                    CameraId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prezzo = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    IsLoan = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Camera", x => x.CameraId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,14 +191,67 @@ namespace BaseModel.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Prenotazioni",
+                columns: table => new
+                {
+                    PrenotazioneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CameraId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DataInizio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataFine = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Stato = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prenotazioni", x => x.PrenotazioneId);
+                    table.CheckConstraint("CK_Prenotazione_Stato", "Stato IN ('Confermata', 'Pagata', 'Check-in Effettuato', 'Check-out Effettuato', 'Annullata', 'No-Show', 'Rimborsata', 'In Attesa di Pagamento')");
+                    table.ForeignKey(
+                        name: "FK_Prenotazioni_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Prenotazioni_Camera_CameraId",
+                        column: x => x.CameraId,
+                        principalTable: "Camera",
+                        principalColumn: "CameraId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Prenotazioni_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "ClienteId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
                     { "1", "1", "Admin", "ADMIN" },
-                    { "2", "2", "User", "USER" },
-                    { "3", "3", "Moderator", "MODERATOR" }
+                    { "2", "2", "Manager", "MANAGER" },
+                    { "3", "3", "Receptionist", "RECEPTIONIST" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Camera",
+                columns: new[] { "CameraId", "IsLoan", "Numero", "Prezzo", "Tipo" },
+                values: new object[,]
+                {
+                    { new Guid("542d381e-1168-4897-9a72-edb872b75969"), false, "203", 100.00m, "Tripla" },
+                    { new Guid("65ca3294-3244-460c-afea-cf9cfedf1c2c"), false, "104", 80.00m, "Doppia" },
+                    { new Guid("7ed3ba4f-c946-4e35-aa21-6b21b0f74a7c"), false, "105", 150.00m, "Suite" },
+                    { new Guid("8b1ffabc-6557-4829-bd7a-4ba73bd5b8e8"), false, "205", 80.00m, "Doppia" },
+                    { new Guid("8d22fcb0-e623-43f3-8a70-bf24d2ecb7db"), false, "201", 150.00m, "Suite" },
+                    { new Guid("912c2f20-f503-497d-9566-b1a556ef30df"), false, "204", 50.00m, "Singola" },
+                    { new Guid("d1549003-661e-4da6-8176-9869b7c1213b"), false, "103", 80.00m, "Doppia" },
+                    { new Guid("d75ce6ef-e228-4a1f-9366-321192faa4f7"), false, "102", 50.00m, "Singola" },
+                    { new Guid("f9ee29be-c9d7-4b7b-99c8-03653025ab02"), false, "101", 50.00m, "Singola" },
+                    { new Guid("fe1539de-d30e-41e7-8c28-2117d4a0dc50"), false, "202", 100.00m, "Tripla" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -209,6 +292,21 @@ namespace BaseModel.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prenotazioni_CameraId",
+                table: "Prenotazioni",
+                column: "CameraId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prenotazioni_ClienteId",
+                table: "Prenotazioni",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prenotazioni_UserId",
+                table: "Prenotazioni",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -230,10 +328,19 @@ namespace BaseModel.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Prenotazioni");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Camera");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
         }
     }
 }

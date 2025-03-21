@@ -1,6 +1,6 @@
 ﻿using FluentEmail.Core;
 
-namespace BaseModel.Services
+namespace HotelManagment.Services
 {
     public class EmailServices
     {

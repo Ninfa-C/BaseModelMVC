@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using BaseModel.ViewModels;
+using HotelManagment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BaseModel.Controllers
+namespace HotelManagment.Controllers
 {
     public class HomeController : Controller
     {

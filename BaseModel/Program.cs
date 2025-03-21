@@ -1,6 +1,6 @@
-using BaseModel.Data;
-using BaseModel.Models;
-using BaseModel.Services;
+using HotelManagment.Data;
+using HotelManagment.Models;
+using HotelManagment.Services;
 using FluentEmail.MailKitSmtp;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<BaseDbContext>(
+builder.Services.AddDbContext<HotelManagmentDbContext>(
     options =>
     {
         options.UseSqlServer(
@@ -39,7 +39,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
 })
-    .AddEntityFrameworkStores<BaseDbContext>()
+    .AddEntityFrameworkStores<HotelManagmentDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
 {
@@ -61,6 +61,7 @@ builder.Services.AddScoped<SeriLogServices>();
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 builder.Services.AddScoped<RoleManager<ApplicationRole>>();
+builder.Services.AddScoped<PrenotazioniServices>();
 
 var app = builder.Build();
 
@@ -82,6 +83,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Register}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace BaseModel.Services
+namespace HotelManagment.Services
 {
     public class SeriLogServices
     {

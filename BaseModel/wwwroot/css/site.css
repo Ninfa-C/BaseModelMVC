@@ -10,19 +10,19 @@
 }
 
 body {
-    height:100vh;
-    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    height: 100vh;
 }
 
-main{
-    flex-grow:1;
+main {
+}
+
+.containerAuth {
+    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-
-.containerAuth {
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
     position: relative;
     width: 850px;
     height: 550px;
@@ -43,7 +43,7 @@ main{
         margin: 15px 0;
     }
 
-form {
+formAuth {
     width: 100%;
 }
 
@@ -67,7 +67,7 @@ form {
 }
 
 .form-box.register {
-    visibility: hidden;
+    visibility: visible;
 }
 
 .containerAuth.active .form-box.register {
@@ -113,7 +113,7 @@ form {
         color: #333;
     }
 
-.btn {
+.btn-custom {
     width: 100%;
     height: 48px;
     background: #7494ec;
@@ -271,4 +271,23 @@ form {
     .toggle-panel h1 {
         font-size: 30px;
     }
+}
+
+
+fieldset {
+    display: block;
+    min-inline-size: min-content !important;
+    margin-inline: 2px !important;
+    border-width: 2px !important;
+    border-style: groove !important;
+    border-color: lightgrey !important;
+    padding-block: 0.35em 0.625em !important;
+    padding-inline: 0.75em !important;
+}
+
+legend {
+    width: max-content !important;
+    unicode-bidi: isolate !important;
+    padding-inline: 2px !important;
+    float: inherit !important;
 }

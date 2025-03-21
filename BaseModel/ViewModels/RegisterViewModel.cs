@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BaseModel.ViewModels
+namespace HotelManagment.ViewModels
 {
     public class RegisterViewModel
     {

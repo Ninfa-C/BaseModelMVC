@@ -1,0 +1,75 @@
+﻿@model PrenotazioneAddModel
+
+@{
+	var rooms = ViewBag.Rooms as List<Camera>;
+}
+<form id="addPrenForm">
+	<fieldset class="row g-3 border-1 mb-4">
+		<legend>Cliente</legend>
+		<div class="form-group col-md-6">
+			<label asp-for="Name" class="control-label"></label>
+			<input asp-for="Name" class="form-control" type="text" placeholder="Nome"/>
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-6">
+			<label asp-for="Surname" class="control-label"></label>
+			<input asp-for="Surname" class="form-control" type="text" placeholder="Cognome"/>
+			<span asp-validation-for="Surname" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-6">
+			<label asp-for="Email" class="control-label"></label>
+			<input asp-for="Email" class="form-control" type="email" placeholder="email"/>
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-6">
+			<label asp-for="Phone" class="control-label"></label>
+			<input asp-for="Phone" class="form-control" type="tel" placeholder="telefono" />
+			<span asp-validation-for="Phone" class="text-danger"></span>
+		</div>
+	</fieldset>
+	<fieldset class="row g-3 border-1 mb-4">
+		<legend>Prenotazione camera</legend>
+		<div class="form-group col-md-3">
+			<label asp-for="DataInizio" class="control-label"> Data inizio</label>
+			<input asp-for="DataInizio" class="form-control" type="datetime-local" />
+			<span asp-validation-for="DataInizio" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-3">
+			<label asp-for="DataFine" class="control-label"> Data fine</label>
+			<input asp-for="DataFine" class="form-control" type="datetime-local" />
+			<span asp-validation-for="DataFine" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-3">
+			<label asp-for="CameraId" class="form-label mb-0">Seleziona camera</label>
+			<select asp-for="CameraId" id="roomSelect" class="form-control">
+				<option selected disabled> Seleziona una camera</option>
+				@if (rooms != null)
+				{
+					@foreach (var item in rooms)
+					{
+						<option value="@item.CameraId">@item.Numero - @item.Tipo</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label asp-for="Stato" class="form-label mb-0">Stato</label>
+			<select asp-for="Stato" id="statoPrenotazioneSelect" class="form-control">
+				<option selected disabled> Seleziona uno stato</option>
+				<option value="Confermata">Confermata</option>
+				<option value="Pagata">Pagata</option>
+				<option value="Check-in Effettuato">Check-in Effettuato</option>
+				<option value="Check-out Effettuato">Check-out Effettuato</option>
+				<option value="Annullata">Annullata</option>
+				<option value="No-Show">No-Show</option>
+				<option value="Rimborsata">Rimborsata</option>
+				<option value="In Attesa di Pagamento">In Attesa di Pagamento</option>
+			</select>
+		</div>
+	</fieldset>
+
+	<button class="btn btn-success" type="submit" onclick="SaveAdd()">Aggiungi</button>
+
+</form>
+
+

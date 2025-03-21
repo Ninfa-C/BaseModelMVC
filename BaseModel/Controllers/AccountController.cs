@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Reflection.Emit;
 using System.Security.Claims;
-using BaseModel.Models;
-using BaseModel.Services;
-using BaseModel.ViewModels;
+using HotelManagment.Models;
+using HotelManagment.Services;
+using HotelManagment.ViewModels;
 using FluentEmail.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BaseModel.Controllers
+namespace HotelManagment.Controllers
 {
     public class AccountController : Controller
     {
@@ -37,7 +37,7 @@ namespace BaseModel.Controllers
         {
             var newUser = new ApplicationUser()
             {
-                UserName = model.Username,
+                UserName = model.Email,
                 Email = model.Email,
                 Name = model.Name,
                 Surname = model.Surname,
@@ -63,9 +63,9 @@ namespace BaseModel.Controllers
                 .UsingTemplateFromFile(Path.Combine(Directory.GetCurrentDirectory(), "Views", "Email", "ConfirmationEmail.cshtml"), emailModel)
                 .SendAsync();
 
-            var user = await _userManager.FindByNameAsync(newUser.UserName);
-            await _userManager.AddToRoleAsync(user, "User");
-            return RedirectToAction("Index", "Home");
+            var user = await _userManager.FindByEmailAsync(newUser.Email);
+            await _userManager.AddToRoleAsync(user, "Receptionist");
+            return RedirectToAction("Index", "Prenotazioni");
         }
 
         [HttpGet]
@@ -87,10 +87,13 @@ namespace BaseModel.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Prenotazioni");
         }
 
-
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(RegisterViewModel model)
         {
@@ -110,7 +113,6 @@ namespace BaseModel.Controllers
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.GivenName, $"{user.Name} {user.Surname}"));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
-            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
 
             foreach (var role in roles)
             {
@@ -119,14 +121,14 @@ namespace BaseModel.Controllers
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Prenotazioni");
         }
 
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Register", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
     }

@@ -2,7 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Identity;
 
-namespace BaseModel.Models
+namespace HotelManagment.Models
 {
     public class ApplicationUser : IdentityUser
     {
@@ -13,5 +13,6 @@ namespace BaseModel.Models
         public string Surname { get; set; }
 
         public ICollection<ApplicationUserRole> ApplicationUserRole { get; set; }
+        public ICollection<Prenotazione> Prenotazione { get; set; }
     }
 }
