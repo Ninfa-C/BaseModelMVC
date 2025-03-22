@@ -2,11 +2,11 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    var userName = User.Identity.IsAuthenticated ? User.FindFirst(ClaimTypes.Name)?.Value : null;
+    var userName = User.Identity.IsAuthenticated ? User.FindFirst(ClaimTypes.GivenName)?.Value : null;
 }
 
-<div class="text-center h-100 w-100 d-flex flex-column justify-content-center align-items-center">
-    <div>
+<div class="text-center container ">
+    <div class="my-3">
 		<h1 class="display-4 my-auto">
 			Welcome
 			@if (!string.IsNullOrEmpty(userName))
@@ -14,7 +14,54 @@
 				<span>@userName</span>
 			}
 		</h1>
-		<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
 
+
+	<div class="row gap-4 justify-content-center">
+        <div class="col-md-3">
+            <div class="card card-blog">
+                <div class="card-image">
+                    <a asp-controller="Prenotazioni" asp-action="Index">
+                        <div class="img-container mb-4">
+							<img src="https://lh4.googleusercontent.com/proxy/8tztArEcccgKS5fbjUrrJ5FgcBQZk8d5V3mp1h8BXceWfRq3CayWMNQS7kGMRKhhTX45EZ4ERTPCHfhgg6e2_3L-KhdOWiXFbrDOgvvz6S6gT2pk_jU">
+						</div>
+                         <p class="text-decoration-none text-info text-uppercase fs-3">prenotazioni</p>
+                    </a>
+                </div>
+                <div class="table px-2">
+                    <p class="card-description"> Consulta l'archivio delle prenotazioni, aggiungine di nuove o modifica/elimina quelle già esistenti. <span class="text-danger"> Area soggetta a restrizioni, devi avere i permessi per poter effettuare alcune operazioni</span> </p>
+                </div>
+            </div>          
+        </div>
+        <div class="col-md-3">
+            <div class="card card-blog">
+                <div class="card-image">
+                    <a asp-controller="Clienti" asp-action="Index">
+                        <div class="img-container mb-4">
+                            <img src="https://www.future-interactive.it/wp-content/uploads/2023/05/Come-Definire-il-Target-degli-Ospiti-di-un-Hotel-800x431.jpg">
+                        </div>
+                        <p class="text-decoration-none text-warning text-uppercase fs-3">Ospiti</p>
+                    </a>
+                </div>
+                <div class="table px-2">
+                    <p class="card-description"> Consulta l'archivio dei clienti, aggiungine di nuovi o modifica/elimina quelle già esistenti. <span class="text-danger"> Area soggetta a restrizioni, devi avere i permessi per poter effettuare alcune operazioni</span> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-blog">
+                <div class="card-image">
+                    <a asp-controller="Camere" asp-action="Index">
+                        <div class="img-container mb-4">
+                            <img src="https://img.edilportale.com/product-thumbs/b_berlino-mobilificio-sangiorgi-501461-rel75dc4898.jpg">
+                        </div>
+                        <p class="text-decoration-none text-success text-uppercase fs-3">Camere</p>
+                    </a>
+                </div>
+                <div class="table px-2">
+                    <p class="card-description"> Consulta l'archivio delle camere, aggiungine di nuove o modifica/elimina quelle già esistenti. <span class="text-danger"> Area soggetta a restrizioni, devi avere i permessi per poter effettuare alcune operazioni</span> </p>
+                </div>
+            </div>
+        </div>
+	</div>
 </div>

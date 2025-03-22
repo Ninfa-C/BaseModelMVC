@@ -14,6 +14,8 @@ namespace HotelManagment.Models
         public decimal Prezzo { get; set; }
         [Required]
         public bool IsLoan { get; set; }
+        [Required]
+        public string Img { get; set; }
         public ICollection<Prenotazione> Prenotazione { get; set; }
     }
 }

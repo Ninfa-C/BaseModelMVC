@@ -1,0 +1,28 @@
+﻿@model CameraAddModel
+
+
+<form id="addRoomForm" class="pt-3 row" enctype="multipart/form-data">
+
+		<div class="form-group col-md-4">
+			<label asp-for="Numero" class="control-label"></label>
+			<input asp-for="Numero" class="form-control" type="number" placeholder="Numero camera" />
+			<span asp-validation-for="Numero" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-4">
+			<label asp-for="Tipo" class="control-label"></label>
+			<input asp-for="Tipo" class="form-control" type="text" placeholder="Esempio:Singola, Doppia" />
+			<span asp-validation-for="Tipo" class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-4">
+			<label asp-for="Prezzo" class="control-label"></label>
+			<input asp-for="Prezzo" class="form-control" type="number" step="0.01" placeholder="Prezzo" />
+			<span asp-validation-for="Prezzo" class="text-danger"></span>
+		</div>
+	<div class="my-3">
+		<label for="surName" class="form-label">Immagine Camera</label>
+		<input type="file" class="form-control" asp-for="img">
+	</div>
+
+	<button class="btn btn-success" type="submit" onclick="SaveRoomAdd()">Aggiungi</button>
+
+</form>

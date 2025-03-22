@@ -1,58 +1,58 @@
 ﻿﻿@using System.Security.Claims
 @model PrenotazioniListModel
 
+
 @if (Model.Prenotazioni != null && Model.Prenotazioni.Count() > 0)
 {
-    <table id="prenotazioniTable" class="table table-warning table-striped table-hover table table-bordered">
-        <thead>
-            <tr>
-				<th>Id</th>
-				<th>Dal</th>
-				<th>Al</th>
-				<th>Cognome</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Telefono</th>
-				<th>Camera</th>
-				<th>Prezzo</th>
-				<th>Stato</th>
-				<th>Dipendente</th>
-				<th>Manage</th>
-            </tr>           
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Prenotazioni)
-            {
-                <tr>
-                    <th>@item.PrenotazioneId.ToString().Substring(0,2)</th>
-                    <th>@item.DataInizio</th>
-                    <th>@item.DataFine</th>
-                    <th>@item.Cliente.Name</th>
-                    <th>@item.Cliente.Surname</th>
-                    <th>@item.Cliente.Email</th>
-                    <th>@item.Cliente.Phone</th>
-                    <th>@item.Camera.Numero</th>
-                    <th>€ @item.Camera.Prezzo</th>
-                    <th>@item.Stato</th>
-                    <th>@item.User.Name</th>
-                    <td class="text-center">
-                        @if (User.Identity.IsAuthenticated && !User.IsInRole("Receptionist"))
-                        {
-                            <div class="d-flex gap-2">
-								<a class="nav-link" asp-controller="Prenotazioni" asp-action="EditPrenotazione" asp-route-id="@item.PrenotazioneId"><i class="bi bi-pencil-square"></i></a>
-                                <a class="nav-link" asp-controller="Prenotazioni" asp-action="Delete" asp-route-id="@item.PrenotazioneId" title="Delete" onclick="return confirm('Sei sicuro di voler eliminare questa prenotazione');"><i class="bi bi-trash3"></i></a>
+	<div >		
+		<table id="prenotazioniTable" class="table table-warning table-striped table-hover table table-bordered fs-custom">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Periodo</th>
+					<th>Cognome</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Telefono</th>
+					<th>Camera</th>
+					<th>Stato</th>
+					<th>Dipendente</th>
+					<th>Manage</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Prenotazioni)
+				{
+					<tr>
+						<th>@item.PrenotazioneId.ToString().Substring(0, 2)</th>
+						<th>Dal @item.DataInizio.Value.ToShortDateString()<br />Al @item.DataFine.Value.ToShortDateString()</th>					
+						<th>@item.Cliente.Name</th>
+						<th>@item.Cliente.Surname</th>
+						<th>@item.Cliente.Email</th>
+						<th>@item.Cliente.Phone</th>
+						<th>@item.Camera.Numero</th>
+						<th>@item.Stato</th>
+						<th>@item.User.Name</th>
+						<td class="text-center">
+							@if (User.Identity.IsAuthenticated && !User.IsInRole("Receptionist"))
+							{
+								<div class="d-flex gap-2 align-items-center">
+									<button class="btn btn-border-0 d-flex align-items-center" onclick="getEdit('@item.PrenotazioneId')"><i class="bi bi-pencil-square"></i></button>
+									<a class="nav-link" asp-controller="Prenotazioni" asp-action="Delete" asp-route-id="@item.PrenotazioneId" title="Delete" onclick="return confirm('Sei sicuro di voler eliminare questa prenotazione')"><i class="bi bi-trash3"></i></a>
 
-							</div>
-                          }
-                        else
-                        {
-                            <p>No actions available</p>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+								</div>
+							}
+							else
+							{
+								<p>No actions available</p>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+    </div>
+   
 }
 else
 {

@@ -36,23 +36,7 @@ namespace HotelManagment.Data
 
             builder.Entity<Prenotazione>()
             .ToTable(tb => tb.HasCheckConstraint("CK_Prenotazione_Stato",
-                "Stato IN ('Confermata', 'Pagata', 'Check-in Effettuato', 'Check-out Effettuato', 'Annullata', 'No-Show', 'Rimborsata', 'In Attesa di Pagamento')"));
-
-            builder.Entity<Camera>().HasData(
-                new Camera { CameraId = Guid.NewGuid(), Numero = "101", Tipo = "Singola", Prezzo = 50.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "102", Tipo = "Singola", Prezzo = 50.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "103", Tipo = "Doppia", Prezzo = 80.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "104", Tipo = "Doppia", Prezzo = 80.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "105", Tipo = "Suite", Prezzo = 150.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "201", Tipo = "Suite", Prezzo = 150.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "202", Tipo = "Tripla", Prezzo = 100.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "203", Tipo = "Tripla", Prezzo = 100.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "204", Tipo = "Singola", Prezzo = 50.00m, IsLoan = false },
-                new Camera { CameraId = Guid.NewGuid(), Numero = "205", Tipo = "Doppia", Prezzo = 80.00m, IsLoan = false }
-            );
-            builder.Entity<Camera>()
-                .Property(c => c.Prezzo)
-                .HasPrecision(10, 2);
+                "Stato IN ('Confermata', 'Check-in Effettuato', 'Check-out Effettuato', 'Annullata', 'No-Show')"));
 
             builder.Entity<ApplicationUserRole>()
                 .Property(p => p.Date)

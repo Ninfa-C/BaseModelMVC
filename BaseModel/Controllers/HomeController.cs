@@ -1,11 +1,14 @@
 using System.Diagnostics;
 using HotelManagment.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagment.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -23,10 +26,23 @@ namespace HotelManagment.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Route("Error/{statusCode}")]
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 404)
+            {
+                ViewBag.ErrorMessage = "La pagina che stai cercando non esiste.";
+            }
+            else if (statusCode == 500)
+            {
+                ViewBag.ErrorMessage = "Si è verificato un errore interno del server.";
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Si è verificato un errore.";
+            }
+
+            return View();
         }
     }
 }

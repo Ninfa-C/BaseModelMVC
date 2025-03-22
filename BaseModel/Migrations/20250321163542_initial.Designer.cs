@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagment.Migrations
 {
     [DbContext(typeof(HotelManagmentDbContext))]
-    [Migration("20250321093852_initial")]
+    [Migration("20250321163542_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -182,8 +182,7 @@ namespace HotelManagment.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Prezzo")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
@@ -196,7 +195,7 @@ namespace HotelManagment.Migrations
                     b.HasData(
                         new
                         {
-                            CameraId = new Guid("f9ee29be-c9d7-4b7b-99c8-03653025ab02"),
+                            CameraId = new Guid("12a8bcc1-0804-43e4-9107-5218c30f505f"),
                             IsLoan = false,
                             Numero = "101",
                             Prezzo = 50.00m,
@@ -204,7 +203,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("d75ce6ef-e228-4a1f-9366-321192faa4f7"),
+                            CameraId = new Guid("6703cf65-76ae-4b76-b3f3-4e37df562905"),
                             IsLoan = false,
                             Numero = "102",
                             Prezzo = 50.00m,
@@ -212,7 +211,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("d1549003-661e-4da6-8176-9869b7c1213b"),
+                            CameraId = new Guid("edb1338f-9aea-4c61-80d8-606b71621553"),
                             IsLoan = false,
                             Numero = "103",
                             Prezzo = 80.00m,
@@ -220,7 +219,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("65ca3294-3244-460c-afea-cf9cfedf1c2c"),
+                            CameraId = new Guid("9ae082cf-5a63-4819-ba9a-647369dc401e"),
                             IsLoan = false,
                             Numero = "104",
                             Prezzo = 80.00m,
@@ -228,7 +227,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("7ed3ba4f-c946-4e35-aa21-6b21b0f74a7c"),
+                            CameraId = new Guid("31a81649-6d34-41ef-9e66-17fb6b31a964"),
                             IsLoan = false,
                             Numero = "105",
                             Prezzo = 150.00m,
@@ -236,7 +235,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("8d22fcb0-e623-43f3-8a70-bf24d2ecb7db"),
+                            CameraId = new Guid("bbb09be5-ac19-401c-bce5-d52f369901fb"),
                             IsLoan = false,
                             Numero = "201",
                             Prezzo = 150.00m,
@@ -244,7 +243,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("fe1539de-d30e-41e7-8c28-2117d4a0dc50"),
+                            CameraId = new Guid("2ecfd0e4-3b58-4895-aff3-83f8ccd4c2d6"),
                             IsLoan = false,
                             Numero = "202",
                             Prezzo = 100.00m,
@@ -252,7 +251,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("542d381e-1168-4897-9a72-edb872b75969"),
+                            CameraId = new Guid("588ae193-380e-48e8-860d-e5ad4a1c632e"),
                             IsLoan = false,
                             Numero = "203",
                             Prezzo = 100.00m,
@@ -260,7 +259,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("912c2f20-f503-497d-9566-b1a556ef30df"),
+                            CameraId = new Guid("4db911f2-ae85-4d08-9432-0af59b2ff731"),
                             IsLoan = false,
                             Numero = "204",
                             Prezzo = 50.00m,
@@ -268,7 +267,7 @@ namespace HotelManagment.Migrations
                         },
                         new
                         {
-                            CameraId = new Guid("8b1ffabc-6557-4829-bd7a-4ba73bd5b8e8"),
+                            CameraId = new Guid("15add54e-18a5-46f2-b81a-0d8169428090"),
                             IsLoan = false,
                             Numero = "205",
                             Prezzo = 80.00m,
@@ -345,7 +344,7 @@ namespace HotelManagment.Migrations
 
                     b.ToTable("Prenotazioni", t =>
                         {
-                            t.HasCheckConstraint("CK_Prenotazione_Stato", "Stato IN ('Confermata', 'Pagata', 'Check-in Effettuato', 'Check-out Effettuato', 'Annullata', 'No-Show', 'Rimborsata', 'In Attesa di Pagamento')");
+                            t.HasCheckConstraint("CK_Prenotazione_Stato", "Stato IN ('Confermata', 'Check-in Effettuato', 'Check-out Effettuato', 'Annullata', 'No-Show')");
                         });
                 });
 

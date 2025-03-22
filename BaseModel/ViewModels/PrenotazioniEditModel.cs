@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using HotelManagment.Models;
 
 namespace HotelManagment.ViewModels
 {
-    public class PrenotazioneAddModel
+    public class PrenotazioniEditModel
     {
+        public Guid IdPrenotazione { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -27,6 +27,7 @@ namespace HotelManagment.ViewModels
         public Guid ClienteId { get; set; }
         [Required(ErrorMessage = "Il campo Camera è obbligatorio")]
         public Guid CameraId { get; set; }
-
+        [Required]
+        public string Stato { get; set; }
     }
 }

@@ -121,7 +121,7 @@ namespace HotelManagment.Controllers
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            return RedirectToAction("Index", "Prenotazioni");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Logout()
